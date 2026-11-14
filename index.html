@@ -1,65 +1,43 @@
 <!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8"><meta name="theme-color" content="#0e2029"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Brotbox"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Brotbox – Planer</title>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0e2029"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Brotbox">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><title>Brotbox – Planer</title>
 <style>
-:root{--bg:#0e2029;--panel:#172e3b;--panel2:#203b49;--line:#31505f;--text:#edf5f8;--muted:#a9bfca;--blue:#83a8ff;--green:#58d6a0;--pink:#e77eb5}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;padding:22px}
-main{max-width:1100px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.brand{font-size:clamp(26px,4vw,38px);font-weight:900;letter-spacing:-1px}.status{color:var(--muted);font-size:13px}
-nav{display:flex;gap:9px;margin:18px 0}button,.tab{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:11px 17px;border-radius:15px;font-weight:700;cursor:pointer}.tab.active,button.primary{background:var(--blue);color:#10213a;border-color:var(--blue)}button:hover,.tab:hover{filter:brightness(1.08)}
-.wrap{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}
-.toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:17px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-.day{background:#142a36;border:1px solid var(--line);border-radius:16px;padding:15px;min-width:0}.day h2{font-size:17px;margin:0 0 10px}.meal{font-size:18px;font-weight:800;margin:4px 0 10px}.tags{display:flex;gap:7px;flex-wrap:wrap}.tag{background:#0e2029;border-radius:20px;padding:5px 9px;font-size:13px}.basis{display:inline-block;color:var(--green);background:#173d35;padding:4px 9px;border-radius:12px;font-size:12px;font-weight:700;margin-top:10px}
-section{display:none}section.active{display:block}.list{display:grid;gap:10px}.item{display:flex;align-items:center;gap:10px;background:#142a36;border:1px solid var(--line);padding:12px;border-radius:12px}.item input{accent:var(--green);width:18px;height:18px}.item.checked span{text-decoration:line-through;color:var(--muted)}
-h3{margin:8px 0;color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.06em}
-.note{color:var(--muted);font-size:13px;margin-top:14px}
-@media(max-width:650px){body{padding:12px}.grid{grid-template-columns:1fr}.wrap{padding:12px}.toolbar{align-items:flex-start}}
-</style></head>
-<body><main>
-<div class="top"><div class="brand">🥪 Brotbox-Planer</div><div class="status" id="status">Woche 1 · persönlicher Plan</div></div>
-<nav><button class="tab active" data-tab="week">Woche</button><button class="tab" data-tab="prep">Vorbereiten</button><button class="tab" data-tab="shop">Einkaufen</button></nav>
+:root{--bg:#0e2029;--panel:#172e3b;--panel2:#203b49;--line:#31505f;--text:#edf5f8;--muted:#a9bfca;--blue:#83a8ff;--green:#58d6a0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,sans-serif;padding:18px}main{max-width:1050px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-size:clamp(25px,4vw,36px);font-weight:900}.status{font-size:13px;color:var(--muted)}nav{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}button,.tab,select,input,textarea{font:inherit}button,.tab{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:10px 14px;border-radius:13px;font-weight:700;cursor:pointer}.active,button.primary{background:var(--blue);color:#10213a;border-color:var(--blue)}button:disabled{opacity:.5}.wrap{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:16px}section{display:none}section.active{display:block}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.day{background:#142a36;border:1px solid var(--line);border-radius:15px;padding:14px}.day h2{font-size:17px;margin:0 0 8px}.meal{font-size:17px;font-weight:750;white-space:pre-wrap}.tags{color:var(--muted);font-size:13px;margin-top:8px}.list{display:grid;gap:8px}.item{display:flex;align-items:center;gap:10px;background:#142a36;border:1px solid var(--line);padding:11px;border-radius:12px}.item input[type=checkbox]{accent:var(--green);width:18px;height:18px}.item.checked span{text-decoration:line-through;color:var(--muted)}h3{margin:15px 0 8px;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.06em}.note{color:var(--muted);font-size:13px}.field{width:100%;background:#10232d;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px;margin:5px 0 12px}.editday{background:#142a36;border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}.editday label{font-size:13px;color:var(--muted)}.weekselect{max-width:100%;background:#10232d;color:var(--text);border:1px solid var(--line);padding:10px;border-radius:12px}
+@media(max-width:650px){body{padding:10px}.grid{grid-template-columns:1fr}.wrap{padding:11px}}
+</style></head><body><main>
+<div class="top"><div class="brand">🥪 Brotbox-Planer</div><div class="status" id="status">Verbinde …</div></div>
+<nav><button class="tab active" data-tab="week">Woche</button><button class="tab" data-tab="prep">Vorbereiten</button><button class="tab" data-tab="shop">Einkaufen</button><button class="tab" data-tab="edit">Plan bearbeiten</button></nav>
 <div class="wrap">
-<section id="week" class="active">
-<div class="toolbar"><span>Deine Boxen für fünf Arbeitstage</span><button class="primary" id="newweek">Woche vorschlagen</button></div>
-<div class="grid" id="days"></div>
-<p class="note">Alles abends vorbereiten – morgens die fertige Box aus dem Kühlschrank nehmen. Abgehakte Einkäufe bleiben lokal gespeichert.</p>
-</section>
-<section id="prep">
-<div class="toolbar"><strong>Vorbereitung für die Woche</strong><button id="resetprep">Zurücksetzen</button></div>
-<h3>Sonntag / Einkaufstag</h3><div class="list" id="prepweek"></div>
-<h3>Jeden Abend</h3><div class="list" id="prepevening"></div>
-</section>
-<section id="shop">
-<div class="toolbar"><span id="shopcount">Einkaufsliste · passend zu Woche 1</span><button id="resetshop">Liste zurücksetzen</button></div>
-<div id="shopping"></div>
-<p class="note">Die Häkchen werden automatisch in diesem Browser gespeichert.</p>
-</section>
-</div>
-</main>
+<section id="week" class="active"><div class="toolbar"><select class="weekselect" id="weekSelect"></select><button class="primary" id="createWeek">＋ Neue Woche</button></div><div class="grid" id="days"></div><p class="note">Deine Wochenpläne werden online gespeichert und auf Mac und iPhone synchronisiert.</p></section>
+<section id="edit"><div class="toolbar"><strong>Aktuelle Woche bearbeiten</strong><button class="primary" id="savePlan">Plan speichern</button></div><label>Wochenname</label><input class="field" id="planName" placeholder="z. B. KW 48 · 24.–28. November"><div id="dayEditor"></div><label>Einkaufsliste (ein Eintrag pro Zeile)</label><textarea class="field" id="shopText" rows="8"></textarea><label>Vorbereitung (ein Eintrag pro Zeile)</label><textarea class="field" id="prepText" rows="6"></textarea><label>Abendroutine (ein Eintrag pro Zeile)</label><textarea class="field" id="eveningText" rows="5"></textarea><button class="primary" id="savePlan2">Plan speichern</button></section>
+<section id="prep"><div class="toolbar"><strong>Vorbereitung · <span id="prepTitle"></span></strong><button id="resetprep">Zurücksetzen</button></div><h3>Wochenvorbereitung</h3><div class="list" id="prepweek"></div><h3>Jeden Abend</h3><div class="list" id="prepevening"></div></section>
+<section id="shop"><div class="toolbar"><strong>Einkauf · <span id="shopTitle"></span></strong><button id="resetshop">Liste zurücksetzen</button></div><div id="shopping"></div></section>
+</div></main>
 <script>
-const days=[
-["Montag","Käse-Frischkäse-Sandwich",["🥪 Weiches Brot","🧀 Frischkäse & Gouda","🥒 Gurkenscheiben","🍇 Weintrauben","🥛 Naturjoghurt"]],
-["Dienstag","Käse-Wrap",["🌯 Wrap mit Kräuterfrischkäse & Gouda","🥬 Weicher Blattsalat","🥒 Gurkensticks","🍌 Banane","🍮 Pudding"]],
-["Mittwoch","Eiersandwich",["🥪 Sandwich mit cremigem Eiersalat","🥒 Gurke","🫐 Heidelbeeren","🥛 Skyr"]],
-["Donnerstag","Schinken-Käse-Wrap",["🌯 Wrap mit Frischkäse, Kochschinken & Gouda","🥒 Gurkenscheiben","🍎 Apfel","🥛 Fruchtjoghurt"]],
-["Freitag","Käsebrot & Snackbox",["🥪 Brot mit Käse oder Frischkäse","🥒 Gurke","🍇 Weintrauben / übriges Obst","🥛 Skyr oder Pudding"]]
-];
-const shopGroups={"Brot & Wraps":["1 kleines Brot","1 Packung Wraps"],"Belag":["1 Packung Gouda","1 Packung Kochschinken","1 Packung Frischkäse natur","1 Packung Kräuterfrischkäse","4 Eier"],"Obst & Gemüse":["2 Gurken","1 kleine Packung Blattsalat","1 Schale Weintrauben","1 Schale Heidelbeeren","2 Bananen","2 Äpfel"],"Milchprodukte & Snacks":["2 Naturjoghurts","2 Skyr","1–2 Puddings","1 Fruchtjoghurt"]};
-const prepweek=["Einkauf erledigen und Vorräte prüfen","Gurke waschen und in Snackportionen schneiden","Weintrauben waschen und portionieren","4 Eier hart kochen (für den Eiersalat)","Brot und Wraps bereitstellen"];
-const prepevening=["Box für morgen zusammenstellen","Snack und Obst/Gemüse einpacken","Joghurt oder Dessert ergänzen","Box verschließen und in den Kühlschrank stellen","Morgens nur noch Box und Getränk greifen"];
-let checked={},prepDone={},password=localStorage.getItem('bb-password')||'',syncTimer;
-const statusEl=document.getElementById('status');
-async function api(method='GET',body){const r=await fetch('/api/brotbox',{method,headers:{'x-brotbox-password':password,'content-type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});if(r.status===401)throw Error('Passwort falsch');if(!r.ok)throw Error('Netlify-Datenspeicher nicht erreichbar');return r.json()}
-async function login(){if(!password)password=prompt('Brotbox-Synchronisierung: gemeinsames Passwort eingeben');if(!password)return;try{const data=await api();checked=data.checked||{};prepDone=data.prepDone||{};localStorage.setItem('bb-password',password);statusEl.textContent='✓ synchronisiert';renderPrep();renderShop()}catch(e){localStorage.removeItem('bb-password');password='';alert(e.message==='Passwort falsch'?'Das Passwort stimmt nicht. Bitte erneut öffnen.':e.message);statusEl.textContent='Nicht verbunden'} }
-function save(){statusEl.textContent='Synchronisiert…';clearTimeout(syncTimer);syncTimer=setTimeout(async()=>{try{await api('PUT',{checked,prepDone,week:1});statusEl.textContent='✓ synchronisiert'}catch(e){statusEl.textContent='⚠ Sync fehlgeschlagen';console.error(e)}},350)}
-function renderDays(){document.getElementById('days').innerHTML=days.map(d=>`<article class="day"><h2>${d[0]}</h2><div class="meal">${d[1]}</div><div class="tags">${d[2].map(x=>`<span class="tag">${x}</span>`).join('')}</div><span class="basis">✓ einfache Zutatenbasis</span></article>`).join('')}
-function checklist(arr,key){return arr.map((x,i)=>`<label class="item ${prepDone[key+i]?'checked':''}"><input type="checkbox" ${prepDone[key+i]?'checked':''} data-prep="${key+i}"><span>${x}</span></label>`).join('')}
-function renderPrep(){document.getElementById('prepweek').innerHTML=checklist(prepweek,'w');document.getElementById('prepevening').innerHTML=checklist(prepevening,'e');document.querySelectorAll('[data-prep]').forEach(el=>el.onchange=()=>{prepDone[el.dataset.prep]=el.checked;renderPrep();save()})}
-function renderShop(){document.getElementById('shopping').innerHTML=Object.entries(shopGroups).map(([g,arr])=>`<h3>${g}</h3><div class="list">${arr.map(x=>{let id=g+'|'+x;return `<label class="item ${checked[id]?'checked':''}"><input type="checkbox" data-shop="${id}" ${checked[id]?'checked':''}><span>${x}</span></label>`}).join('')}</div>`).join('');document.getElementById('shopcount').textContent=`Einkaufsliste · ${Object.values(checked).filter(Boolean).length} erledigt`;document.querySelectorAll('[data-shop]').forEach(el=>el.onchange=()=>{checked[el.dataset.shop]=el.checked;renderShop();save()})}
+const weekdayNames=['Montag','Dienstag','Mittwoch','Donnerstag','Freitag'];
+const starter={name:'Startwoche',days:[{meal:'Käse-Frischkäse-Sandwich',details:'Weiches Brot · Gouda · Gurke · Weintrauben · Naturjoghurt'},{meal:'Käse-Wrap',details:'Wrap mit Kräuterfrischkäse & Gouda · Gurke · Banane · Pudding'},{meal:'Eiersandwich',details:'Cremiger Eiersalat · Gurke · Heidelbeeren · Skyr'},{meal:'Schinken-Käse-Wrap',details:'Frischkäse · Kochschinken · Gouda · Gurke · Apfel · Joghurt'},{meal:'Käsebrot & Snackbox',details:'Brot mit Käse/Frischkäse · Gurke · Obst · Skyr'}],shop:['Brot','Wraps','Gouda','Kochschinken','Frischkäse natur','Kräuterfrischkäse','Eier','Gurken','Blattsalat','Weintrauben','Heidelbeeren','Bananen','Äpfel','Naturjoghurt','Skyr','Pudding'],prep:['Einkauf erledigen und Vorräte prüfen','Gurke waschen und in Snackportionen schneiden','Obst waschen und portionieren','Eier hart kochen (für Eiersalat)','Brot und Wraps bereitstellen'],evening:['Box für morgen zusammenstellen','Snack und Obst/Gemüse einpacken','Joghurt oder Dessert ergänzen','Box verschließen und in den Kühlschrank stellen','Morgens nur noch Box und Getränk greifen']};
+let password=localStorage.getItem('bb-password')||'',syncTimer,data={plans:{},selected:'start'},checks={},statusEl=document.getElementById('status');
+function key(){return data.selected}
+function current(){return data.plans[key()]}
+async function api(method='GET',body){let r=await fetch('/api/brotbox',{method,headers:{'x-brotbox-password':password,'content-type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});if(r.status===401)throw Error('Passwort falsch');if(!r.ok)throw Error('Datenspeicher nicht erreichbar');return r.json()}
+async function load(){if(!password)password=prompt('Brotbox-Synchronisierung: gemeinsames Passwort eingeben')||'';if(!password)return;try{let remote=await api();data=remote.data||{plans:{start:structuredClone(starter)},selected:'start'};checks=remote.checks||{};if(!data.plans||!Object.keys(data.plans).length)data.plans={start:structuredClone(starter)};if(!data.selected||!data.plans[data.selected])data.selected=Object.keys(data.plans)[0];localStorage.setItem('bb-password',password);statusEl.textContent='✓ synchronisiert';renderAll()}catch(e){password='';localStorage.removeItem('bb-password');statusEl.textContent='Nicht verbunden';alert(e.message)}}
+function save(){statusEl.textContent='Synchronisiert…';clearTimeout(syncTimer);syncTimer=setTimeout(async()=>{try{await api('PUT',{data,checks});statusEl.textContent='✓ synchronisiert'}catch(e){statusEl.textContent='⚠ Sync fehlgeschlagen';console.error(e)}},300)}
+function renderAll(){renderSelect();renderDays();renderEditor();renderPrep();renderShop()}
+function renderSelect(){let s=document.getElementById('weekSelect');s.innerHTML=Object.entries(data.plans).map(([id,p])=>`<option value="${id}" ${id===key()?'selected':''}>${esc(p.name||id)}</option>`).join('');s.onchange=()=>{data.selected=s.value;save();renderAll()}}
+function renderDays(){document.getElementById('days').innerHTML=current().days.map((d,i)=>`<article class="day"><h2>${weekdayNames[i]}</h2><div class="meal">${esc(d.meal||'Noch kein Essen geplant')}</div><div class="tags">${esc(d.details||'')}</div></article>`).join('')}
+function renderEditor(){document.getElementById('planName').value=current().name||'';document.getElementById('dayEditor').innerHTML=current().days.map((d,i)=>`<div class="editday"><strong>${weekdayNames[i]}</strong><label> Mahlzeit</label><input class="field" data-meal="${i}" value="${attr(d.meal||'')}" placeholder="z. B. Käse-Wrap"><label> Zutaten & Snacks</label><textarea class="field" data-details="${i}" rows="2">${esc(d.details||'')}</textarea></div>`).join('');document.getElementById('shopText').value=(current().shop||[]).join('\\n');document.getElementById('prepText').value=(current().prep||[]).join('\\n');document.getElementById('eveningText').value=(current().evening||[]).join('\\n')}
+function saveEditor(){let p=current();p.name=document.getElementById('planName').value.trim()||'Meine Woche';document.querySelectorAll('[data-meal]').forEach(e=>p.days[+e.dataset.meal].meal=e.value);document.querySelectorAll('[data-details]').forEach(e=>p.days[+e.dataset.details].details=e.value);p.shop=document.getElementById('shopText').value.split('\\n').map(x=>x.trim()).filter(Boolean);p.prep=document.getElementById('prepText').value.split('\\n').map(x=>x.trim()).filter(Boolean);p.evening=document.getElementById('eveningText').value.split('\\n').map(x=>x.trim()).filter(Boolean);save();renderAll();alert('Woche gespeichert und synchronisiert.')}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}function attr(s){return esc(s).replace(/'/g,'&#39;')}
+function list(arr,prefix){return arr.map((x,i)=>{let id=key()+'|'+prefix+i;return `<label class="item ${checks[id]?'checked':''}"><input type="checkbox" data-check="${attr(id)}" ${checks[id]?'checked':''}><span>${esc(x)}</span></label>`}).join('')}
+function renderPrep(){document.getElementById('prepTitle').textContent=current().name;document.getElementById('prepweek').innerHTML=list(current().prep||[],'p');document.getElementById('prepevening').innerHTML=list(current().evening||[],'e');bindChecks()}
+function renderShop(){document.getElementById('shopTitle').textContent=current().name;document.getElementById('shopping').innerHTML='<div class="list">'+list(current().shop||[],'s')+'</div>';bindChecks()}
+function bindChecks(){document.querySelectorAll('[data-check]').forEach(e=>e.onchange=()=>{checks[e.dataset.check]=e.checked;renderPrep();renderShop();save()})}
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('section').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab))});
-document.getElementById('resetshop').onclick=()=>{checked={};renderShop();save()};document.getElementById('resetprep').onclick=()=>{prepDone={};renderPrep();save()};
-document.getElementById('newweek').onclick=()=>alert('Die Wochenverwaltung bauen wir als nächsten Schritt ein.');
-renderDays();renderPrep();renderShop();login();
-</script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script></body></html>
+document.getElementById('createWeek').onclick=()=>{let name=prompt('Name der neuen Woche (z. B. KW 48)');if(!name)return;let id='w'+Date.now();data.plans[id]={name,days:weekdayNames.map(()=>({meal:'',details:''})),shop:[],prep:[],evening:[]};data.selected=id;save();renderAll();document.querySelector('[data-tab="edit"]').click()};
+document.getElementById('savePlan').onclick=saveEditor;document.getElementById('savePlan2').onclick=saveEditor;
+document.getElementById('resetshop').onclick=()=>{Object.keys(checks).filter(x=>x.startsWith(key()+'|s')).forEach(x=>delete checks[x]);renderShop();save()};
+document.getElementById('resetprep').onclick=()=>{Object.keys(checks).filter(x=>x.startsWith(key()+'|p')||x.startsWith(key()+'|e')).forEach(x=>delete checks[x]);renderPrep();save()};
+load();
+</script><script>if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script></body></html>
