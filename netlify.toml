@@ -1,0 +1,7 @@
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/brotbox"
+  to = "/.netlify/functions/brotbox"
+  status = 200
