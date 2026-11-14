@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="theme-color" content="#0e2029"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Brotbox"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brotbox – Planer</title>
+<style>
+:root{--bg:#0e2029;--panel:#172e3b;--panel2:#203b49;--line:#31505f;--text:#edf5f8;--muted:#a9bfca;--blue:#83a8ff;--green:#58d6a0;--pink:#e77eb5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;padding:22px}
+main{max-width:1100px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.brand{font-size:clamp(26px,4vw,38px);font-weight:900;letter-spacing:-1px}.status{color:var(--muted);font-size:13px}
+nav{display:flex;gap:9px;margin:18px 0}button,.tab{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:11px 17px;border-radius:15px;font-weight:700;cursor:pointer}.tab.active,button.primary{background:var(--blue);color:#10213a;border-color:var(--blue)}button:hover,.tab:hover{filter:brightness(1.08)}
+.wrap{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}
+.toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:17px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.day{background:#142a36;border:1px solid var(--line);border-radius:16px;padding:15px;min-width:0}.day h2{font-size:17px;margin:0 0 10px}.meal{font-size:18px;font-weight:800;margin:4px 0 10px}.tags{display:flex;gap:7px;flex-wrap:wrap}.tag{background:#0e2029;border-radius:20px;padding:5px 9px;font-size:13px}.basis{display:inline-block;color:var(--green);background:#173d35;padding:4px 9px;border-radius:12px;font-size:12px;font-weight:700;margin-top:10px}
+section{display:none}section.active{display:block}.list{display:grid;gap:10px}.item{display:flex;align-items:center;gap:10px;background:#142a36;border:1px solid var(--line);padding:12px;border-radius:12px}.item input{accent:var(--green);width:18px;height:18px}.item.checked span{text-decoration:line-through;color:var(--muted)}
+h3{margin:8px 0;color:var(--muted);font-size:14px;text-transform:uppercase;letter-spacing:.06em}
+.note{color:var(--muted);font-size:13px;margin-top:14px}
+@media(max-width:650px){body{padding:12px}.grid{grid-template-columns:1fr}.wrap{padding:12px}.toolbar{align-items:flex-start}}
+</style></head>
+<body><main>
+<div class="top"><div class="brand">🥪 Brotbox-Planer</div><div class="status" id="status">Woche 1 · persönlicher Plan</div></div>
+<nav><button class="tab active" data-tab="week">Woche</button><button class="tab" data-tab="prep">Vorbereiten</button><button class="tab" data-tab="shop">Einkaufen</button></nav>
+<div class="wrap">
+<section id="week" class="active">
+<div class="toolbar"><span>Deine Boxen für fünf Arbeitstage</span><button class="primary" id="newweek">Woche vorschlagen</button></div>
+<div class="grid" id="days"></div>
+<p class="note">Alles abends vorbereiten – morgens die fertige Box aus dem Kühlschrank nehmen. Abgehakte Einkäufe bleiben lokal gespeichert.</p>
+</section>
+<section id="prep">
+<div class="toolbar"><strong>Vorbereitung für die Woche</strong><button id="resetprep">Zurücksetzen</button></div>
+<h3>Sonntag / Einkaufstag</h3><div class="list" id="prepweek"></div>
+<h3>Jeden Abend</h3><div class="list" id="prepevening"></div>
+</section>
+<section id="shop">
+<div class="toolbar"><span id="shopcount">Einkaufsliste · passend zu Woche 1</span><button id="resetshop">Liste zurücksetzen</button></div>
+<div id="shopping"></div>
+<p class="note">Die Häkchen werden automatisch in diesem Browser gespeichert.</p>
+</section>
+</div>
+</main>
+<script>
+const days=[
+["Montag","Käse-Frischkäse-Sandwich",["🥪 Weiches Brot","🧀 Frischkäse & Gouda","🥒 Gurkenscheiben","🍇 Weintrauben","🥛 Naturjoghurt"]],
+["Dienstag","Käse-Wrap",["🌯 Wrap mit Kräuterfrischkäse & Gouda","🥬 Weicher Blattsalat","🥒 Gurkensticks","🍌 Banane","🍮 Pudding"]],
+["Mittwoch","Eiersandwich",["🥪 Sandwich mit cremigem Eiersalat","🥒 Gurke","🫐 Heidelbeeren","🥛 Skyr"]],
+["Donnerstag","Schinken-Käse-Wrap",["🌯 Wrap mit Frischkäse, Kochschinken & Gouda","🥒 Gurkenscheiben","🍎 Apfel","🥛 Fruchtjoghurt"]],
+["Freitag","Käsebrot & Snackbox",["🥪 Brot mit Käse oder Frischkäse","🥒 Gurke","🍇 Weintrauben / übriges Obst","🥛 Skyr oder Pudding"]]
+];
+const shopGroups={"Brot & Wraps":["1 kleines Brot","1 Packung Wraps"],"Belag":["1 Packung Gouda","1 Packung Kochschinken","1 Packung Frischkäse natur","1 Packung Kräuterfrischkäse","4 Eier"],"Obst & Gemüse":["2 Gurken","1 kleine Packung Blattsalat","1 Schale Weintrauben","1 Schale Heidelbeeren","2 Bananen","2 Äpfel"],"Milchprodukte & Snacks":["2 Naturjoghurts","2 Skyr","1–2 Puddings","1 Fruchtjoghurt"]};
+const prepweek=["Einkauf erledigen und Vorräte prüfen","Gurke waschen und in Snackportionen schneiden","Weintrauben waschen und portionieren","4 Eier hart kochen (für den Eiersalat)","Brot und Wraps bereitstellen"];
+const prepevening=["Box für morgen zusammenstellen","Snack und Obst/Gemüse einpacken","Joghurt oder Dessert ergänzen","Box verschließen und in den Kühlschrank stellen","Morgens nur noch Box und Getränk greifen"];
+let checked=JSON.parse(localStorage.getItem("bb-shop")||"{}"), prepDone=JSON.parse(localStorage.getItem("bb-prep")||"{}");
+function renderDays(){document.getElementById("days").innerHTML=days.map(d=>`<article class="day"><h2>${d[0]}</h2><div class="meal">${d[1]}</div><div class="tags">${d[2].map(x=>`<span class="tag">${x}</span>`).join("")}</div><span class="basis">✓ einfache Zutatenbasis</span></article>`).join("")}
+function checklist(arr,key){return arr.map((x,i)=>`<label class="item ${prepDone[key+i]?'checked':''}"><input type="checkbox" ${prepDone[key+i]?'checked':''} data-prep="${key+i}"><span>${x}</span></label>`).join("")}
+function renderPrep(){document.getElementById("prepweek").innerHTML=checklist(prepweek,"w");document.getElementById("prepevening").innerHTML=checklist(prepevening,"e");document.querySelectorAll("[data-prep]").forEach(el=>el.onchange=()=>{prepDone[el.dataset.prep]=el.checked;localStorage.setItem("bb-prep",JSON.stringify(prepDone));renderPrep()})}
+function renderShop(){let n=0,total=0;document.getElementById("shopping").innerHTML=Object.entries(shopGroups).map(([g,arr])=>`<h3>${g}</h3><div class="list">${arr.map(x=>{let id=g+"|"+x;n++;return `<label class="item ${checked[id]?'checked':''}"><input type="checkbox" data-shop="${id}" ${checked[id]?'checked':''}><span>${x}</span></label>`}).join("")}</div>`).join("");document.getElementById("shopcount").textContent=`Einkaufsliste · ${Object.values(checked).filter(Boolean).length} erledigt`;document.querySelectorAll("[data-shop]").forEach(el=>el.onchange=()=>{checked[el.dataset.shop]=el.checked;localStorage.setItem("bb-shop",JSON.stringify(checked));renderShop()})}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll("section").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab))});
+document.getElementById("resetshop").onclick=()=>{checked={};localStorage.setItem("bb-shop","{}");renderShop()};
+document.getElementById("resetprep").onclick=()=>{prepDone={};localStorage.setItem("bb-prep","{}");renderPrep()};
+document.getElementById("newweek").onclick=()=>alert("Das ist dein Startplan für Woche 1. Neue Wochen können wir gemeinsam mit deinen Vorlieben zusammenstellen und hier eintragen.");
+renderDays();renderPrep();renderShop();
+</script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script></body></html>
